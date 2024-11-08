@@ -1,43 +1,62 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			contacts: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			createAgenda: async () => {
+				try {
+					const response = await fetch('https://playground.4geeks.com/contact/agendas/Angui', {
+						method:"POST",
+						headers: {"Content-Type": "application/json"}
+					})
+					if (response.status == 201) {
+						await getActions().getContact()
+					}
+					return true
+				} catch (error) {
+					console.log(error)
+					return false
+				}
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+
+			createContact: async (newContact) => {
+				try {
+					const response = await fetch('https://playground.4geeks.com/contact/agendas/Angui/contacts', {
+						method:"POST",
+						headers: {"Content-Type": "application/json"},
+						body: JSON.stringify(newContact)
+					})
+					if (response.status == 201) {
+						await getActions().getContact()
+					}
+					return true
+				} catch (error) {
+					console.log(error)
+					return false
+				}
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
+			getContact: async () => {
+				try {
+					const response = await fetch('https://playground.4geeks.com/contact/agendas/Angui', {
+						method:"GET",
+						headers: {"Content-Type": "application/json"}
+					})
+					if (response.status == 404) {
+						await getActions().createAgenda() 
+						return
+					}
+					const data = await response.json()
+					console.log(data.contacts)
+					setStore({contacts: data.contacts})
+					return true
+				} catch (error) {
+					console.log(error)
+					return false
+				}
+			},
 		}
 	};
 };

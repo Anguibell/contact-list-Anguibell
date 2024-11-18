@@ -28,6 +28,7 @@ const AddContact = () => {
 
   return (
     <div className="container">
+      <h1 className="m-5 d-flex justify-content-center">Add a new contact!</h1>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">
           Email address

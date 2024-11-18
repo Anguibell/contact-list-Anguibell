@@ -8,17 +8,17 @@ export const Card = ({ id, nombre, email, address, phone, edit }) => {
   const { actions, store } = useContext(Context);
 
   return (
-    <div className="card mb-3" style={{ maxWidth: "540px" }}>
-      <div className="row g-0">
+    <div className="card mb-3" style={{ width: "80%" }}>
+      <div className="row g-0 d-flex align-items-center">
         <div className="col-md-4">
           <img
             src="https://picsum.photos/200"
-            className="img-fluid rounded-start"
+            className="img-fluid rounded-circle m-3"
             alt={nombre}
           />
         </div>
         <div className="col-md-8">
-          <div className="card-body">
+          <div className="card-body ">
             <div className="d-flex justify-content-between">
               <h5 className="card-title">{nombre}</h5>
               <div>
@@ -39,9 +39,9 @@ export const Card = ({ id, nombre, email, address, phone, edit }) => {
                 </button>
               </div>
             </div>
-            <p className="card-text">{email}</p>
-            <p className="card-text">{address}</p>
-            <p className="card-text">{phone}</p>
+            <p className="card-text d-flex justify-content-start">{email}</p>
+            <p className="card-text d-flex justify-content-start">{address}</p>
+            <p className="card-text d-flex justify-content-start">{phone}</p>
           </div>
         </div>
       </div>

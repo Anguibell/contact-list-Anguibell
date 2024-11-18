@@ -13,8 +13,8 @@ export const Home = () => {
 
   return (
     <div className="text-center mt-5">
-      <h1>Contacts!</h1>
-	  <div className="d-flex justify-content-center">
+      <h1 className="mb-5">Contacts!</h1>
+	  <div className="d-flex justify-content-center flex-column align-items-center">
 		{store.contacts.map((item) => (
 			<Card
 			key={item.id}
